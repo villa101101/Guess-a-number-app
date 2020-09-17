@@ -3,11 +3,13 @@ import { Button, StyleSheet, Text, TouchableWithoutFeedback, View, Keyboard, Ale
 
 import Card from '../components/Card'
 import Input from '../components/Input'
+import NumberContainer from '../components/NumberContainer'
+
 import Colors from '../constants/Colors'
 
 
 
-const StarGameScreen = props => {
+const StartGameScreen = props => {
 
     const [enteredValue, setEnteredValue] = useState('')
     const [confirmed, setConfirmed] = useState(false)
@@ -32,12 +34,23 @@ const StarGameScreen = props => {
         setConfirmed(true)
         setEnteredValue('')
         setSelectedNumber(chosenNumber)
+        Keyboard.dismiss()
+    }
+
+    const startHandler = () => {
+
     }
 
     let confirmedOutput;
 
     if (confirmed) {
-        confirmedOutput = <Text>Chosen Number: {selectedNumber}</Text>
+        confirmedOutput = (
+            <Card style={styles.summaryContainer}>
+                <Text>You selected</Text>
+                <NumberContainer>{selectedNumber}</NumberContainer>
+                <Button title="START GAME" onPress={() => props.onStartGame(selectedNumber)} />
+            </Card>)
+
     }
 
     return (
@@ -100,28 +113,13 @@ const styles = StyleSheet.create({
     input: {
         width: 50,
         textAlign: 'center'
-    }
+    },
+    summaryContainer: {
+        marginTop: 20,
+        alignItems: 'center'
+    },
 
 })
 
 
-export default StarGameScreen
-
-
-
-
-
-// import React from 'react'
-// import { View, Text, StyleSheet } from 'react-native'
-
-// const StarGameScreen = props => {
-
-// }
-
-
-// const styles = StyleSheet.create({
-
-// })
-
-
-// export default StarGameScreen
+export default StartGameScreen
